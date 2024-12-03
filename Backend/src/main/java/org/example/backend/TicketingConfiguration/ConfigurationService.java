@@ -33,10 +33,8 @@ public class ConfigurationService {
      * @throws IOException if the file is not found or cannot be read
      */
     public Configuration loadConfiguration() throws IOException {
-        // Check if the configuration file exists
-        File file = new File(CONFIG_FILE);
 
         // Deserialize the JSON file into a SystemConfiguration object
-        return objectMapper.readValue(file, Configuration.class);
+        return objectMapper.readValue(CONFIG_FILE, Configuration.class);
     }
 }
