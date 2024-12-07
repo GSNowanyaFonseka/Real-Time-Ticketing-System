@@ -1,51 +1,52 @@
 package org.example.backend.TicketingConfiguration;
 
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/configuration")
+@RequestMapping("/api/config")
 
 public class Controller {
 
     private final ConfigurationService configurationService;
 
-    private Configuration currentconfig;
+    private Configuration currentConfig;
 
     public Controller(){
         this.configurationService = new ConfigurationService();
         try{
-            this.currentconfig = configurationService.loadConfiguration();
+            this.currentConfig = configurationService.loadConfiguration();
         }catch (IOException e){
-            this.currentconfig = new Configuration();
+            this.currentConfig = new Configuration();
         }
     }
 
     @PostMapping
-    public ResponseEntity<String> setConfiguration(@Valid @RequestBody Configuration config) {
+    public ResponseEntity<String> setConfiguration( @RequestBody Configuration config) {
 
+        // validation
         if(config.getTotalTickets() <= 0 || config.getTicketReleaseRate() <= 0 ||
                 config.getCustomerRetrievalRate() <= 0 || config.getMaxTicketCapacity() <=0){
             return ResponseEntity.badRequest().body("All values must be positive integers");
         }
 
-        if(config.getMaxTicketCapacity() < config.getTicketReleaseRate()){
-            return ResponseEntity.badRequest().body("Max ticket capacity must be greater than or equal to ticket release rate");
-        }
+//        if(config.getMaxTicketCapacity() < config.getTicketReleaseRate()){
+//            return ResponseEntity.badRequest().body("Max ticket capacity must be greater than or equal to ticket release rate");
+//        }
 
-        this.currentconfig = config;
+        this.currentConfig = config;
 
         try{
-         configurationService.saveConfiguration(currentconfig);
+            configurationService.saveConfiguration(config); // save to Json file
 
-         // Display in terminal
-            System.out.println("Total tickets : " + this.currentconfig.getTotalTickets());
-            System.out.println("Customer retrival rate : " + this.currentconfig.getCustomerRetrievalRate());
-            System.out.println("Max ticket capacity : " + this.currentconfig.getMaxTicketCapacity());
-            System.out.println("Ticket release rate : " + this.currentconfig.getTicketReleaseRate());
+            // Display in terminal
+            System.out.println("Total tickets : " + this.currentConfig.getTotalTickets());
+            System.out.println("Customer retrieval Rate : " + this.currentConfig.getCustomerRetrievalRate());
+            System.out.println("Max ticket capacity : " + this.currentConfig.getMaxTicketCapacity());
+            System.out.println("Ticket release rate : " + this.currentConfig.getTicketReleaseRate());
+
 
         }catch (IOException e){
             return ResponseEntity.badRequest().body("Failed to save configuration");
@@ -56,6 +57,6 @@ public class Controller {
 
     @GetMapping
     public ResponseEntity<Configuration> getConfiguration() {
-        return ResponseEntity.ok(this.currentconfig);
+        return ResponseEntity.ok(this.currentConfig);
     }
 }

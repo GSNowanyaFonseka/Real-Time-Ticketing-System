@@ -1,10 +1,12 @@
 package org.example.backend.TicketingConfiguration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 
+@Service
 public class ConfigurationService {
 
     private static final String CONFIG_FILE = "config.json"; // File to store configuration
@@ -33,8 +35,10 @@ public class ConfigurationService {
      * @throws IOException if the file is not found or cannot be read
      */
     public Configuration loadConfiguration() throws IOException {
+        // Check if the configuration file exists
+        File file = new File(CONFIG_FILE);
 
         // Deserialize the JSON file into a SystemConfiguration object
-        return objectMapper.readValue(CONFIG_FILE, Configuration.class);
+        return objectMapper.readValue(file, Configuration.class);
     }
 }
