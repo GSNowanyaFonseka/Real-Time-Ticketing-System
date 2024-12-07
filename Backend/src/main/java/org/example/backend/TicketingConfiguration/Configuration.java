@@ -13,5 +13,21 @@ public class Configuration {
     private int customerRetrievalRate;
     private int maxTicketCapacity;
 
+    // singleton instance
+    private static Configuration instance;
+
+    private Configuration(){
+        this.totalTickets = 0;
+        this.ticketReleaseRate = 0;
+        this.customerRetrievalRate = 0;
+        this.maxTicketCapacity = 0;
+    }
+
+    public static synchronized Configuration getInstance(){
+        if(instance == null){
+            instance = new Configuration();
+        }
+        return instance;
+    }
 }
 

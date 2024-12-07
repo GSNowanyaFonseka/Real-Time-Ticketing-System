@@ -14,12 +14,12 @@ public class Controller {
 
     private Configuration currentConfig;
 
-    public Controller(){
+    public Controller() {
         this.configurationService = new ConfigurationService();
         try{
             this.currentConfig = configurationService.loadConfiguration();
         }catch (IOException e){
-            this.currentConfig = new Configuration();
+            this.currentConfig = Configuration.getInstance();
         }
     }
 
@@ -42,10 +42,7 @@ public class Controller {
             configurationService.saveConfiguration(config); // save to Json file
 
             // Display in terminal
-            System.out.println("Total tickets : " + this.currentConfig.getTotalTickets());
-            System.out.println("Customer retrieval Rate : " + this.currentConfig.getCustomerRetrievalRate());
-            System.out.println("Max ticket capacity : " + this.currentConfig.getMaxTicketCapacity());
-            System.out.println("Ticket release rate : " + this.currentConfig.getTicketReleaseRate());
+            System.out.println(config.toString());
 
 
         }catch (IOException e){
