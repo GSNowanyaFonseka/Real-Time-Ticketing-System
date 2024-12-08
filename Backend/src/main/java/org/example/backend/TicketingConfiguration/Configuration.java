@@ -1,10 +1,12 @@
 package org.example.backend.TicketingConfiguration;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Data
 
 public class Configuration {
 
@@ -17,10 +19,6 @@ public class Configuration {
     private static Configuration instance;
 
     private Configuration(){
-        this.totalTickets = 0;
-        this.ticketReleaseRate = 0;
-        this.customerRetrievalRate = 0;
-        this.maxTicketCapacity = 0;
     }
 
     public static synchronized Configuration getInstance(){

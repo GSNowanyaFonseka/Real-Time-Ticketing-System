@@ -1,10 +1,16 @@
 package org.example.backend.TicketingConfiguration;
 
+import lombok.Getter;
+import org.hibernate.annotations.SecondaryRow;
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+@Getter
 public class TicketPool {
 
     private final int maxTicketCapacity;  // Maximum tickets allowed in ticketPool
@@ -16,26 +22,35 @@ public class TicketPool {
 
     private final List<String> ticketList = Collections.synchronizedList(new ArrayList<String>());
 
-    public TicketPool(int totalTickets, int maxCapacity, int ticketRleaseRate, int customerRetrievalRate) {
-        this.totalTickets = totalTickets;
-        this.maxTicketCapacity = maxCapacity;
-        this.ticketReleaseRate = ticketRleaseRate;
-        this.customerRetrievalRate = customerRetrievalRate;
+    // Constructor that initializes fields from the Configuration Singleton instance
+    // Constructor that accepts configuration values
+    public TicketPool(Configuration config) {
+        this.maxTicketCapacity = config.getMaxTicketCapacity();
+        this.totalTickets = config.getTotalTickets();
+        this.customerRetrievalRate = config.getCustomerRetrievalRate();
+        this.ticketReleaseRate = config.getTicketReleaseRate();
+        this.currentListSize = 0;
+        this.ticketCount = 0;
 
-        currentListSize = 0;
-        ticketCount = 0;
+        // Print values to the terminal
+        System.out.println("TicketPool initialized with the following values:");
+        System.out.println("Max Ticket Capacity: " + maxTicketCapacity);
+        System.out.println("Total Tickets: " + totalTickets);
+        System.out.println("Customer Retrieval Rate: " + customerRetrievalRate);
+        System.out.println("Ticket Release Rate: " + ticketReleaseRate);
     }
 
-    public synchronized void addTicket(int vendorID){
+    public synchronized void addTicket(long vendorID){
 
         while(currentListSize >= maxTicketCapacity ||
                 ticketCount >= totalTickets){
 
             try{
-                if(ticketCount >= totalTickets) {
-                    System.out.println("All the tikets are added to the pool " + vendorID + " is waiting");
-                }else if (currentListSize >= maxTicketCapacity) {
-                    System.out.println("TicketPool is full, " + vendorID + " is waiting");
+                if (currentListSize >= maxTicketCapacity) {
+                    System.out.println("TicketPool is full, "+" Vendor" + vendorID + " is waiting");
+                }
+                else if(ticketCount >= totalTickets) {
+                    System.out.println("All the tikets are added to the pool vendor " + vendorID + " is waiting");
                 }
 
                 // Vendors are waiting
@@ -51,13 +66,15 @@ public class TicketPool {
         String ticket = "Ticket : " + ticketCount;
         ticketList.add(ticket);
         currentListSize++;
+        System.out.println("Vendor " + vendorID + " added " +ticket+ " tickets. Current Pool Size: " + currentListSize + "/" + maxTicketCapacity);
+        notifyAll();
     }
 
-    public synchronized void removeTickets(int customerID) throws InterruptedException {
+    public synchronized void removeTickets(long customerID) {
 
-        while(ticketList.isEmpty()){
+        while(currentListSize <= 0){
             try{
-                System.out.println("Ticket pool is empty " + customerID + " is waiting");
+                System.out.println("Ticket pool is empty customer " + customerID + " is waiting");
 
                 wait();
 
@@ -68,6 +85,9 @@ public class TicketPool {
 
         String ticket = ticketList.remove(0);
         currentListSize--;
+        System.out.println("Customer " + customerID + " bought " + ticket+ " tickets " +  ". Current Pool Size: " + currentListSize+ "/" + maxTicketCapacity);
+        notifyAll();
     }
+
 
 }

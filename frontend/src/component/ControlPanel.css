@@ -1,0 +1,56 @@
+/* General container for the Control Panel */
+.control-panel {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto; /* Centered horizontally */
+    padding: 20px;
+    background-color: #CBDCEB; /* Light theme */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Title styling */
+  .control-title {
+    font-size: 1.5rem;
+    color: #133E87;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  /* Button container */
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between the buttons */
+  }
+  
+  /* General button styles */
+  .control-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  /* Start button styling */
+  .start-btn {
+    background-color: #7373e6; /* Green */
+    color: white;
+  }
+  
+  /* Stop button styling */
+  .stop-btn {
+    background-color: #1b55b8; /* Red */
+    color: white;
+  }
+  
+  /* Hover effects */
+  .control-btn:hover {
+    filter: brightness(1.1);
+  }
+  
+  

@@ -20,8 +20,9 @@ public class Customer implements Runnable{
                 Thread.sleep(1000/customerRetrievalRate);
 
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 System.out.println("Customer " + customerID + " interrupted");
-                throw new RuntimeException(e);
+                break;
             }
         }
     }

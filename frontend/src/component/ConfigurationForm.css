@@ -1,0 +1,86 @@
+/* General container */
+.configuration-form {
+    max-width: 600px; /* Restrict maximum width */
+    margin: 20px auto; /* Center it on the page */
+    padding: 20px;
+    background-color: #CBDCEB; /* Light theme */
+    border: 1px solid #ddd; /* Add subtle border */
+    box-shadow: 0 4px 8px rgba(6, 10, 124, 0.238);
+    border-radius: 8px;
+  }
+    
+  /* Title */
+  .configuration-form h2 {
+    text-align: center;
+    color: #133E87;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+    
+  /* Form Styles */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+    
+  /* Form Group Styling */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px; /* Space between form elements */
+  }
+    
+  .form-group label {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #092554fc;
+  }
+    
+  .form-group input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* Input focus effect */
+  .form-group input:focus {
+    border-color: #333;
+    outline: none;
+  }
+    
+  /* Button Actions */
+  .form-actions {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    gap: 30px; /* Space between buttons */
+    margin-top: 20px;
+  }
+  
+  .form-actions button {
+    padding: 10px 25px; /* Fixed padding for buttons */
+    border: none;
+    border-radius: 4px;
+    background-color: #608BC1;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover effect for buttons */
+  .form-actions button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Reset button with a different theme */
+  .form-actions button[type="reset"] {
+    background-color: #6c757d;
+  }
+  
+  .form-actions button[type="reset"]:hover {
+    background-color: #5a6268;
+  }
+  

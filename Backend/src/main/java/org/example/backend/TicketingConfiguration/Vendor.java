@@ -26,6 +26,7 @@ public class Vendor implements Runnable{
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Vendor " +vendorID +" interrupted");
+                break;
         }
     }
 }
