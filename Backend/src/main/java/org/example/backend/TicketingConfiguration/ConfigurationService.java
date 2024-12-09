@@ -15,7 +15,6 @@ public class ConfigurationService {
     // Singleton instance
     private static ConfigurationService instance;
 
-    // private constructor to prevent direct instantiation
     public ConfigurationService() {
         this.objectMapper = new ObjectMapper(); // Initialize ObjectMapper
     }

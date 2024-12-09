@@ -1,10 +1,7 @@
 package org.example.backend.TicketingConfiguration;
 
 import lombok.Getter;
-import org.hibernate.annotations.SecondaryRow;
-import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +17,9 @@ public class TicketPool {
     private int customerRetrievalRate;
     private int ticketReleaseRate;
 
-    private final List<String> ticketList = Collections.synchronizedList(new ArrayList<String>());
+//    private final List<String> ticketList = Collections.synchronizedList(new ArrayList<String>());
+    private final List<String> ticketList = Collections.synchronizedList(new ArrayList<>());
+
 
     // Constructor that initializes fields from the Configuration Singleton instance
     // Constructor that accepts configuration values
@@ -42,8 +41,8 @@ public class TicketPool {
 
     public synchronized void addTicket(long vendorID){
 
-        while(currentListSize >= maxTicketCapacity ||
-                ticketCount >= totalTickets){
+//        while(currentListSize >= maxTicketCapacity ||
+//                ticketCount >= totalTickets){
 
             try{
                 if (currentListSize >= maxTicketCapacity) {
@@ -56,17 +55,19 @@ public class TicketPool {
                 // Vendors are waiting
                 wait();
 
-            }catch (InterruptedException e){
+            }catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("vendor " + vendorID + " thread interrupted");
             }
-        }
+
+            //}
+
 
         ticketCount++;
         String ticket = "Ticket : " + ticketCount;
         ticketList.add(ticket);
         currentListSize++;
-        System.out.println("Vendor " + vendorID + " added " +ticket+ " tickets. Current Pool Size: " + currentListSize + "/" + maxTicketCapacity);
+        System.out.println("Vendor " + vendorID + " added " +ticket+ " ticket. Current Pool Size: " + currentListSize + "/" + maxTicketCapacity);
         notifyAll();
     }
 
@@ -85,7 +86,7 @@ public class TicketPool {
 
         String ticket = ticketList.remove(0);
         currentListSize--;
-        System.out.println("Customer " + customerID + " bought " + ticket+ " tickets " +  ". Current Pool Size: " + currentListSize+ "/" + maxTicketCapacity);
+        System.out.println("Customer " + customerID + " bought " + ticket+ " ticket. " +  " Current Pool Size: " + currentListSize+ "/" + maxTicketCapacity);
         notifyAll();
     }
 

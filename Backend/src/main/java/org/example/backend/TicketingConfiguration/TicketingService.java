@@ -33,7 +33,7 @@ public class TicketingService {
         for (int i = 1; i <= 5; i++) {
             int vendorID = i; // Logical vendor ID
             Vendor vendor = new Vendor(ticketPool, ticketPool.getTicketReleaseRate(), ticketPool.getMaxTicketCapacity(), vendorID);
-            Thread vendorThread = new Thread(vendor, "Vendor-" + vendorID);
+            Thread vendorThread = new Thread(vendor, "Vendor " + vendorID);
             vendorThreads.add(vendorThread);
             vendorThread.start();
         }
@@ -42,7 +42,7 @@ public class TicketingService {
         for (int i = 1; i <= 5; i++) {
             int customerID = i; // Logical customer ID
             Customer customer = new Customer(ticketPool, ticketPool.getCustomerRetrievalRate(), customerID);
-            Thread customerThread = new Thread(customer, "Customer-" + customerID);
+            Thread customerThread = new Thread(customer, "Customer " + customerID);
             customerThreads.add(customerThread);
             customerThread.start();
         }
@@ -72,7 +72,7 @@ public class TicketingService {
         return "Ticketing system stopped!";
     }
 
-    public synchronized String getSystemStatus() {
-        return isRunning ? "The system is running." : "The system is stopped.";
-    }
+//    public synchronized String getSystemStatus() {
+//        return isRunning ? "The system is running." : "The system is stopped.";
+//    }
 }

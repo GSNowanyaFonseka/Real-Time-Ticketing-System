@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css'; // Import the stylesheet
+import headerImg from '../assets/headerImg.png';
 
 const Header = () => {
   return (
@@ -10,7 +11,7 @@ const Header = () => {
           <p className="header-subtitle">Welcome! Configure your system settings below to get started.</p>
         </div>
         <div className="header-image">
-          <img src="/assets/header-img.jpeg" alt="System Illustration" />
+          <img src={headerImg} alt="System Illustration" />
         </div>
       </div>
     </div>

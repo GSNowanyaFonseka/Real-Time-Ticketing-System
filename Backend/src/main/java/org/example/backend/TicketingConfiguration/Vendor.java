@@ -8,11 +8,13 @@ public class Vendor implements Runnable{
     private final int ticketReleaseRate;
     private static int ticketCounter = 0;
     private final int vendorID;
+    private final int maxTicketCpacity;
 
     public Vendor (TicketPool ticketPool, int ticketReleaseRate, int maxTicketCapacity, int vendorID) {
         this.ticketPool = ticketPool;
         this.ticketReleaseRate = ticketReleaseRate;
         this.vendorID = vendorID;
+        this.maxTicketCpacity = maxTicketCapacity;
     }
 
     @Override

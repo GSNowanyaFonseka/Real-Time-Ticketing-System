@@ -1,51 +1,83 @@
 /* General container */
 .header-container {
-    height: 100vh; /* Full viewport height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #F3F3E0; /* Light gray background */
-  }
-  
-  /* Header content wrapper */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0196B8; /* Light gray background */
+}
+
+/* Header content wrapper */
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 200px); /* Center with 100px from left & right */
+  padding: 0 100px;
+}
+
+/* Text Section */
+.header-text {
+  flex: 1; /* Take up half of the horizontal space */
+  text-align: left;
+}
+
+.header-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #0b2553;
+  margin-bottom: 10px;
+}
+
+.header-subtitle {
+  font-size: 1.2rem;
+  color: #0d226c;
+}
+
+/* Image Section */
+.header-image {
+  flex: 1; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-image img {
+  max-height: 70%; 
+  max-width: 70%;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  object-fit: contain; /* Ensure the image maintains its aspect ratio */
+  transition: transform 0.3s ease-in-out; /* Smooth animation effect on hover */
+}
+
+/* Hover effect for better interactivity */
+.header-image img:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive Rules for the image */
+@media (max-width: 768px) {
   .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: calc(100% - 200px); /* Center with 100px from left & right */
-    padding: 0 100px;
+    flex-direction: column; /* Stack vertically on smaller screens */
+    padding: 0 20px;
   }
-  
-  /* Text Section */
-  .header-text {
-    flex: 1; /* Take up half of the horizontal space */
-    text-align: left;
-  }
-  
-  .header-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #133E87;
-    margin-bottom: 10px;
-  }
-  
-  .header-subtitle {
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
-  /* Image Section */
-  .header-image {
-    flex: 1; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
+
   .header-image img {
-    max-height: 80%; 
-    max-width: 100%;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 60%;
   }
-  
+}
+
+@media (max-width: 480px) {
+  .header-image img {
+    max-height: 50%;
+  }
+
+  .header-title {
+    font-size: 2rem;
+  }
+
+  .header-subtitle {
+    font-size: 1rem;
+  }
+}

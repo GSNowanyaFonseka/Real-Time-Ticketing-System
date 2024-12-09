@@ -31,7 +31,7 @@ public class Controller {
         // Validation
         if (config.getTotalTickets() <= 0 || config.getTicketReleaseRate() <= 0 ||
                 config.getCustomerRetrievalRate() <= 0 || config.getMaxTicketCapacity() <= 0) {
-            return ResponseEntity.badRequest().body("All values must be positive integers.");
+            return ResponseEntity.badRequest().body("All configuration values must be positive integers.");
         }
 
         this.currentConfig = config;
@@ -64,9 +64,9 @@ public class Controller {
         return ResponseEntity.ok(ticketingService.stopSystem()); // Stops hte system
     }
 
-    @GetMapping("/status")
-    public ResponseEntity<String> getSystemStatus() {
-        String status = ticketingService.getSystemStatus(); // Get the current system status
-        return ResponseEntity.ok(status);
-    }
+//    @GetMapping("/status")
+//    public ResponseEntity<String> getSystemStatus() {
+//        String status = ticketingService.getSystemStatus(); // Get the current system status
+//        return ResponseEntity.ok(status);
+//    }
 }
