@@ -6,7 +6,7 @@ public class Vendor implements Runnable{
 
     private final TicketPool ticketPool;
     private final int ticketReleaseRate;
-    private static int ticketCounter = 0;
+//    private static int ticketCounter = 0;
     private final int vendorID;
     private final int maxTicketCpacity;
 
@@ -20,7 +20,7 @@ public class Vendor implements Runnable{
     @Override
     public void run() {
 
-        while (true) {
+        while (TicketingService.getSystemStatus() && !Thread.currentThread().isInterrupted()) {
             try {
                 ticketPool.addTicket(vendorID);
                 Thread.sleep(1000 / ticketReleaseRate);

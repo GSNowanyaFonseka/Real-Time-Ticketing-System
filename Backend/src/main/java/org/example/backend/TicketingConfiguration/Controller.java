@@ -36,6 +36,10 @@ public class Controller {
 
         this.currentConfig = config;
 
+        if(TicketingService.getSystemStatus()){
+            ticketingService.stopSystem();
+        }
+
         try{
             configurationService.saveConfiguration(config); // Save to JSON file
             ticketingService.initializeSystem(config); // Again initialize TicketingSystem with new config
@@ -61,7 +65,7 @@ public class Controller {
     @PostMapping("/stop")
     public ResponseEntity<String> stopSystem() {
         String response = ticketingService.stopSystem();
-        return ResponseEntity.ok(ticketingService.stopSystem()); // Stops hte system
+        return ResponseEntity.ok(response); // Stops hte system
     }
 
 //    @GetMapping("/status")

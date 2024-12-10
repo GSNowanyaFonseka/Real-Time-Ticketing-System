@@ -11,7 +11,7 @@ public class TicketingService {
     private TicketPool ticketPool;
     private final List<Thread> vendorThreads = new ArrayList<>();
     private final List<Thread> customerThreads = new ArrayList<>();
-    private boolean isRunning = false;
+    private static boolean isRunning = false;
 
     // Initialize TicketPool with the current configuration
     public void initializeSystem(Configuration config) {
@@ -62,17 +62,19 @@ public class TicketingService {
             vendorThread.interrupt();
         }
         vendorThreads.clear();
+        System.out.println("All vendors stopped!");
 
         // Interrupt and clear customer threads
         for (Thread customerThread : customerThreads) {
             customerThread.interrupt();
         }
         customerThreads.clear();
+        System.out.println("All customers stopped!");
 
         return "Ticketing system stopped!";
     }
 
-//    public synchronized String getSystemStatus() {
-//        return isRunning ? "The system is running." : "The system is stopped.";
-//    }
+    public static boolean getSystemStatus() {
+        return isRunning;
+    }
 }

@@ -17,7 +17,11 @@ public class TicketPool {
     private int customerRetrievalRate;
     private int ticketReleaseRate;
 
-//    private final List<String> ticketList = Collections.synchronizedList(new ArrayList<String>());
+
+    private boolean allTicketAdded = false;
+    private boolean ticketPoolEmpty = false;
+
+    //    private final List<String> ticketList = Collections.synchronizedList(new ArrayList<String>());
     private final List<String> ticketList = Collections.synchronizedList(new ArrayList<>());
 
 
@@ -41,15 +45,23 @@ public class TicketPool {
 
     public synchronized void addTicket(long vendorID){
 
-//        while(currentListSize >= maxTicketCapacity ||
-//                ticketCount >= totalTickets){
+        while(currentListSize >= maxTicketCapacity ||
+                ticketCount >= totalTickets){
+
+            if(!TicketingService.getSystemStatus())
+                return;
 
             try{
-                if (currentListSize >= maxTicketCapacity) {
-                    System.out.println("TicketPool is full, "+" Vendor" + vendorID + " is waiting");
-                }
-                else if(ticketCount >= totalTickets) {
-                    System.out.println("All the tikets are added to the pool vendor " + vendorID + " is waiting");
+//                if (currentListSize >= maxTicketCapacity) {
+//                    System.out.println("TicketPool is full, "+" Vendor" + vendorID + " is waiting");
+//                }
+//                else if(ticketCount >= totalTickets) {
+//                    System.out.println("All the tikets are added to the pool vendor " + vendorID + " is waiting");
+//                }
+
+                if(ticketCount >= totalTickets && !allTicketAdded){
+                    System.out.println("All tickets added, vendors are waiting");
+                    allTicketAdded = true;
                 }
 
                 // Vendors are waiting
@@ -57,10 +69,11 @@ public class TicketPool {
 
             }catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.out.println("vendor " + vendorID + " thread interrupted");
+//                System.out.println("vendor " + vendorID + " thread stopped");
+                return;
             }
 
-            //}
+        }
 
 
         ticketCount++;
@@ -68,27 +81,36 @@ public class TicketPool {
         ticketList.add(ticket);
         currentListSize++;
         System.out.println("Vendor " + vendorID + " added " +ticket+ " ticket. Current Pool Size: " + currentListSize + "/" + maxTicketCapacity);
+        allTicketAdded = false;  //** reset the flag if conditions change
         notifyAll();
     }
 
     public synchronized void removeTickets(long customerID) {
 
         while(currentListSize <= 0){
+
+            if(!TicketingService.getSystemStatus())
+                return;
+
             try{
-                System.out.println("Ticket pool is empty customer " + customerID + " is waiting");
+                if(!ticketPoolEmpty){
+                    System.out.println("Ticket pool is empty, customers are waiting");
+                    ticketPoolEmpty = true;  // ensure the message is display only once
+                }
+//                System.out.println("Ticket pool is empty customer " + customerID + " is waiting");
 
                 wait();
 
             }catch(InterruptedException e){
                 Thread.currentThread().interrupt();
+//                System.out.println("customer " + customerID + " thread stopped");
             }
         }
 
         String ticket = ticketList.remove(0);
         currentListSize--;
         System.out.println("Customer " + customerID + " bought " + ticket+ " ticket. " +  " Current Pool Size: " + currentListSize+ "/" + maxTicketCapacity);
+        ticketPoolEmpty = false; // reset the flag if conditions change
         notifyAll();
     }
-
-
 }
