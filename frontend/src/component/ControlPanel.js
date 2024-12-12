@@ -1,20 +1,3 @@
-// import React from 'react';
-// import './ControlPanel.css'; // Import the stylesheet
-
-// const ControlPanel = () => {
-//   return (
-//     <div className="control-panel">
-//       <h3 className="control-title">System Control Panel</h3>
-//       <div className="button-container">
-//         <button className="control-btn start-btn">Start</button>
-//         <button className="control-btn stop-btn">Stop</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ControlPanel;
-
 import React, { useState } from 'react';
 import './ControlPanel.css'; // Import the stylesheet
 

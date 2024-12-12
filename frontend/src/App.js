@@ -2,7 +2,8 @@ import './App.css';
 import ConfigurationForm from './component/ConfigurationForm';
 import ControlPanel from './component/ControlPanel';
 import Header from './component/Header';
-import TicketDisplay from './component/TicketDisplay';
+import LogDisplay from './component/LogDisplay';
+import Footer from './component/Footer';
 
 function App() {
   
@@ -11,7 +12,8 @@ function App() {
       <Header/>
       <ConfigurationForm/>
       <ControlPanel/>
-      <TicketDisplay/>
+      <LogDisplay/>
+      <Footer/>
     </div>
   );
 }

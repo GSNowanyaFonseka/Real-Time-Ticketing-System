@@ -1,8 +1,8 @@
 /* General container for the Control Panel */
 .control-panel {
     width: 100%;
-    max-width: 400px;
-    margin: 10px auto; /* Centered horizontally */
+    max-width: 600px; /* Restrict maximum width */
+    margin: 20px auto; /* Center it on the page */
     padding: 20px;
     background-color: #CBDCEB; /* Light theme */
     border: 1px solid #ddd;

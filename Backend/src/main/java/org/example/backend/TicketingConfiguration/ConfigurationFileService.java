@@ -6,23 +6,28 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 
+// This class for handling configuration file operations
+
 @Service
-public class ConfigurationService {
+public class ConfigurationFileService {
 
-    private static final String CONFIG_FILE = "config.json"; // File to store configuration
-    private static ObjectMapper objectMapper = new ObjectMapper(); // ObjectMapper for JSON processing
+    // Definning constants and object mapper for JSON Processing
+    private static final String CONFIG_FILE = "config.json";
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
-    // Singleton instance
-    private static ConfigurationService instance;
+    private static ConfigurationFileService instance;
 
-    public ConfigurationService() {
+    public ConfigurationFileService() {
         this.objectMapper = new ObjectMapper(); // Initialize ObjectMapper
     }
 
-    // Public method to provide the Singleton instance
-    public static synchronized ConfigurationService getInstance() {
+    /**
+     *
+     * @return
+     */
+    public static synchronized ConfigurationFileService getInstance() {
         if(instance == null) {
-            instance = new ConfigurationService();
+            instance = new ConfigurationFileService();
         }
         return instance;
     }
